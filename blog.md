@@ -3,18 +3,21 @@ layout: default
 title: Blog
 ---
 
-# Blog
+<div class="page-header">
+  <h1>Writing</h1>
+  <p>Things I'm learning, building, and breaking.</p>
+</div>
 
-Things I'm learning, building, and breaking.
-
-<ul class="post-list">
+<div class="section">
   {% for post in site.posts %}
-  <li>
-    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-  </li>
+  <div class="item-row">
+    <a href="{{ post.url | relative_url }}" class="item-link">{{ post.title }} →</a>
+    <p class="item-desc">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+  </div>
   {% endfor %}
   {% if site.posts.size == 0 %}
-  <li style="border: none; color: var(--muted); font-style: italic;">No posts yet — check back soon.</li>
+  <div class="item-row">
+    <p class="item-desc">No posts yet — check back soon.</p>
+  </div>
   {% endif %}
-</ul>
+</div>

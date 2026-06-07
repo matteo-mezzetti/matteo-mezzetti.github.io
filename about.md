@@ -3,32 +3,30 @@ layout: default
 title: About
 ---
 
-# About Me
+<div class="page-header">
+  <h1>About</h1>
+</div>
 
-I'm a 2nd year B.Commerce student at the University of Queensland, studying Business Analytics and Business Information Systems.
+<div class="about-body">
 
-## Background
+  <p>I'm a 2nd year B.Commerce student at the University of Queensland, studying Business Analytics and Business Information Systems.</p>
 
-Outside of data, I've held two people-facing roles:
+  <h2>Experience</h2>
 
-- **HR Intern** — ran end-to-end recruitment pipelines for 5 roles (100+ candidates) in collaboration with the CEO of a rapidly growing 100+ person organisation.
-- **Director of People Operations, Newish Communications Inc** — a student-run communications agency where I built the centralised team intranet you can read about in [Projects](/projects).
+  <p><strong>HR Intern</strong> — ran end-to-end recruitment pipelines for 5 roles (100+ candidates) in collaboration with the CEO of a rapidly growing 100+ person organisation.</p>
 
-## Skills
+  <p><strong>Director of People Operations, Newish Communications Inc</strong> — a student-run communications agency where I built the centralised team intranet you can read about in Projects.</p>
 
-**Currently learning:** R · SQL · Python  
-**Working towards:** Tableau · Power BI · SAS  
-**Comfortable with:** Excel · Google Workspace
+  <h2>Skills</h2>
 
-## How I Work
+  <p><strong>Currently learning:</strong> R · SQL · Python<br>
+  <strong>Working towards:</strong> Tableau · Power BI · SAS<br>
+  <strong>Comfortable with:</strong> Excel · Google Workspace</p>
 
-Every project I document follows this structure:
+  <h2>How I work</h2>
 
-- **Objective** — What business problem was I solving?
-- **Tools** — What languages or software did I use?
-- **Process** — How did I approach it?
-- **Impact** — What were the results?
+  <p>Every project I document follows the same structure: <strong>Objective</strong> (what problem was I solving?), <strong>Tools</strong> (what did I use?), <strong>Process</strong> (how did I approach it?), and <strong>Impact</strong> (what were the results?).</p>
 
----
+  <p>⚡ Fun fact: Bees survived the asteroid impact that wiped out the dinosaurs 66 million years ago and are certified legends.</p>
 
-⚡ Fun fact: Bees survived the asteroid impact that wiped out the dinosaurs 66 million years ago and are certified legends.
+</div>

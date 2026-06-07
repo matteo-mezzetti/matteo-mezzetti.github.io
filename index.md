@@ -4,9 +4,9 @@ title: Home
 ---
 
 <div class="hero">
-  <p class="greeting">Hi, I'm</p>
-  <h1>Matteo Mezzetti</h1>
-  <p>2nd year B.Commerce student at UQ studying Business Analytics and Business Information Systems. I build things with R, SQL, and Python — ask me what I've broken lately.</p>
+  <p class="hero-eyebrow">B.Commerce · UQ · Brisbane</p>
+  <h1>Building things with data.</h1>
+  <p>Business Analytics &amp; Information Systems student. I work with R, SQL, and Python — ask me what I've broken lately.</p>
   <div class="tags">
     <span class="tag">R</span>
     <span class="tag">SQL</span>
@@ -14,19 +14,28 @@ title: Home
     <span class="tag">Excel</span>
     <span class="tag">Google Workspace</span>
   </div>
-  <p>📫 <a href="https://linkedin.com">Connect on LinkedIn</a> — send a note and I'll accept.</p>
+  <a href="https://linkedin.com" class="cta">📫 Connect on LinkedIn</a>
 </div>
 
-## Recent Projects
+<div class="section">
+  <p class="section-title">Projects</p>
+  <div class="item-row">
+    <a href="/projects" class="item-link">Unified Team Intranet →</a>
+    <p class="item-desc">Centralised Google Workspace intranet for a 100+ person student org, replacing 6 siloed team drives.</p>
+  </div>
+</div>
 
-**[Unified Team Intranet →](/projects)**  
-Centralised Google Workspace intranet for a 100+ person student organisation, replacing 6 siloed team drives.
-
-## From the Blog
-
-{% for post in site.posts limit:3 %}
-- [{{ post.title }}]({{ post.url | relative_url }}) — <span style="color: var(--muted); font-size: 0.88rem;">{{ post.date | date: "%b %-d, %Y" }}</span>
-{% endfor %}
-{% if site.posts.size == 0 %}
-*No posts yet — check back soon.*
-{% endif %}
+<div class="section">
+  <p class="section-title">Writing</p>
+  {% for post in site.posts limit:3 %}
+  <div class="item-row">
+    <a href="{{ post.url | relative_url }}" class="item-link">{{ post.title }} →</a>
+    <p class="item-desc">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+  </div>
+  {% endfor %}
+  {% if site.posts.size == 0 %}
+  <div class="item-row">
+    <p class="item-desc">No posts yet — check back soon.</p>
+  </div>
+  {% endif %}
+</div>
