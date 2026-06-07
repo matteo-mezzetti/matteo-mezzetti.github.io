@@ -5,7 +5,7 @@ title: Home
 
 <div class="hero">
   <p class="hero-eyebrow">B.Commerce · UQ · Brisbane</p>
-  <h1>Building things with data.</h1>
+  <h1>Building things with data.<span class="cursor"></span></h1>
   <p>Business Analytics &amp; Information Systems student. I work with R, SQL, and Python — ask me what I've broken lately.</p>
   <div class="tags">
     <span class="tag">R</span>
