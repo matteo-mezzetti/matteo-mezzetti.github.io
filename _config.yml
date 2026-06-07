@@ -1,0 +1,15 @@
+title: Matteo Mezzetti
+description: B.Commerce student at UQ | Business Analytics & Business Information Systems
+baseurl: ""
+url: "https://matteo-mezzetti.github.io"
+author: Matteo Mezzetti
+
+# Build settings
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .gitignore

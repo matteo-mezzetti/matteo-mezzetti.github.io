@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title and page.title != "Home" %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+  <nav>
+    <a href="{{ '/' | relative_url }}" class="site-title">{{ site.author }}</a>
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Home</a>
+      <a href="{{ '/about' | relative_url }}"{% if page.url contains 'about' %} class="active"{% endif %}>About</a>
+      <a href="{{ '/projects' | relative_url }}"{% if page.url contains 'projects' %} class="active"{% endif %}>Projects</a>
+      <a href="{{ '/blog' | relative_url }}"{% if page.url contains 'blog' %} class="active"{% endif %}>Blog</a>
+    </div>
+  </nav>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer>
+    <p>© {{ 'now' | date: "%Y" }} {{ site.author }} · Built with <a href="https://jekyllrb.com">Jekyll</a></p>
+  </footer>
+
+</body>
+</html>
