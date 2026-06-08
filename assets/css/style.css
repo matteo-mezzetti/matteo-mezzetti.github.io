@@ -21,88 +21,14 @@ body {
   line-height: 1.75;
   color: var(--text);
   background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 80% -5%, #3d0000 0%, #1a0000 30%, transparent 60%),
+    radial-gradient(ellipse at 20% 110%, #001a1f 0%, #000d10 25%, transparent 55%);
+  background-attachment: fixed;
   min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ─── Animated blobs ─────────────────────────────────────── */
-.blob-wrap {
-  position: fixed;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.blob-wrap-red  { top: -150px; right: -100px; animation: driftRed  4s ease-in-out infinite alternate; }
-.blob-wrap-cyan { bottom: -150px; left: -100px; animation: driftCyan 5s ease-in-out infinite alternate; }
-
-.blob { border-radius: 50%; }
-
-.blob-red {
-  width: 400px; height: 400px;
-  background: #3d0000;
-  animation:
-    densityRed  15s ease-in-out infinite,
-    brightnessR 30s ease-in-out infinite;
-}
-
-.blob-cyan {
-  width: 350px; height: 350px;
-  background: #003d4d;
-  animation:
-    densityCyan 15s ease-in-out infinite,
-    brightnessC 30s ease-in-out infinite;
-}
-
-/* Drift — position only, 4–5 s */
-@keyframes driftRed {
-  0%   { transform: translate(0px, 0px); }
-  33%  { transform: translate(-80px, 60px); }
-  66%  { transform: translate(60px, 80px); }
-  100% { transform: translate(-40px, -70px); }
-}
-@keyframes driftCyan {
-  0%   { transform: translate(0px, 0px); }
-  33%  { transform: translate(70px, -60px); }
-  66%  { transform: translate(-60px, -80px); }
-  100% { transform: translate(80px, 50px); }
-}
-
-/* Density — scale + blur, 15 s full cycle */
-@keyframes densityRed {
-  0%   { filter: blur(35px);  transform: scale(0.65); }
-  25%  { filter: blur(110px); transform: scale(1.9); }
-  50%  { filter: blur(50px);  transform: scale(0.8); }
-  75%  { filter: blur(130px); transform: scale(2.1); }
-  100% { filter: blur(35px);  transform: scale(0.65); }
-}
-@keyframes densityCyan {
-  0%   { filter: blur(120px); transform: scale(2.0); }
-  25%  { filter: blur(40px);  transform: scale(0.7); }
-  50%  { filter: blur(115px); transform: scale(1.85); }
-  75%  { filter: blur(45px);  transform: scale(0.75); }
-  100% { filter: blur(120px); transform: scale(2.0); }
-}
-
-/* Brightness — opacity only, 30 s full cycle */
-@keyframes brightnessR {
-  0%   { opacity: 0.25; }
-  20%  { opacity: 0.85; }
-  45%  { opacity: 0.3; }
-  70%  { opacity: 0.9; }
-  85%  { opacity: 0.4; }
-  100% { opacity: 0.25; }
-}
-@keyframes brightnessC {
-  0%   { opacity: 1.0; }
-  15%  { opacity: 0.15; }
-  40%  { opacity: 1.0; }
-  65%  { opacity: 0.2; }
-  90%  { opacity: 0.95; }
-  100% { opacity: 1.0; }
 }
 
 /* ─── Navigation ─────────────────────────────────────────── */
-nav, main, footer { position: relative; z-index: 1; }
 
 nav {
   border-bottom: 0.5px solid var(--border);
