@@ -79,7 +79,7 @@ var projects = [
   },
   {
     title: "(WIP) Prediction Song Hotness in the Million Song Dataset",
-    desc: "Watch this space and see what I cook up..."",
+    desc: "Watch this space and see what I cook up...",
     tags: ["R", "ggplot2"],
     bg: "linear-gradient(135deg, #001a1f 0%, #003d4d 100%)",
     link: "#"
