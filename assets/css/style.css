@@ -7,7 +7,7 @@
   --accent-red:   #ff1010;
   --accent-cyan:  #04b4d0;
   --border:       #1a1a1a;
-  --border-mid:   #111111;
+  --border-mid:   #151515111;
   --max-width:    680px;
 }
 
@@ -30,10 +30,12 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
   pointer-events: auto;
+  overflow: hidden;
+  cursor: default !important;
 }
 
 /* ─── Animated blobs ─────────────────────────────────────── */
@@ -112,16 +114,41 @@ body {
   100% { opacity: 1.0; }
 }
 
+
+/* ─── Content backdrop ───────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.65) 40%,
+    rgba(0, 0, 0, 0.2)  65%,
+    transparent         100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* ─── Navigation ─────────────────────────────────────────── */
-nav, main, footer { position: relative; z-index: 1; }
+nav, main, footer { position: relative; z-index: 2; }
 
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #151515;
   border-bottom: 0.5px solid var(--border);
   padding: 1.1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
 }
+
+main { padding-top: 4rem; }
 
 .site-title {
   font-size: 13px;
@@ -328,13 +355,21 @@ main {
 
 /* ─── Footer ─────────────────────────────────────────────── */
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #151515;
   border-top: 0.5px solid var(--border);
-  padding: 1.5rem 2rem;
+  padding: 1.4rem 2rem;
   display: flex;
   justify-content: space-between;
   font-size: 11px;
   color: #444;
+  z-index: 10;
 }
+
+main { padding-bottom: 4rem; }
 
 footer a       { color: #444; text-decoration: none; }
 footer a:hover { color: var(--muted); }
@@ -490,7 +525,7 @@ footer a:hover { color: var(--muted); }
   position: absolute;
   top: -14px;
   right: -14px;
-  background: #111;
+  background: #151515;
   border: 0.5px solid #222;
   color: var(--muted);
   width: 28px;
