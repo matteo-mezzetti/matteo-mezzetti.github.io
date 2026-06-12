@@ -1,61 +1,20 @@
 ---
 layout: default
 title: Projects
+description: Projects by Matteo Mezzetti — data analytics, databases, and systems built with R, SQL, Python, and Google Workspace.
 ---
 
 <div class="page-header">
   <h1>Projects</h1>
-  <p>Things I've built, broken, and fixed.</p>
+  <p>Things I've built, broken, and fixed. Each one documented by objective, tools, process, and impact.</p>
 </div>
 
-<div class="carousel-wrap">
-  <div class="carousel">
-
-    <div class="card" onclick="openModal(0)">
-      <div class="card-img" style="background: linear-gradient(135deg, #1a0000 0%, #3d0000 100%);"></div>
-      <div class="card-body">
-        <div class="card-title">Unified Team Intranet</div>
-        <div class="card-desc">Centralised Google Workspace intranet replacing 6 siloed team drives for a 100+ person student org.</div>
-        <div class="card-tags">
-          <span class="card-tag">Google Workspace</span>
-          <span class="card-tag">Sites</span>
-          <span class="card-tag">Drive</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" onclick="openModal(1)">
-      <div class="card-img" style="background: linear-gradient(135deg, #001a1f 0%, #003d4d 100%);"></div>
-      <div class="card-body">
-        <div class="card-title">(WIP) Prediction Song Hotness in the Million Song Dataset</div>
-        <div class="card-desc">Just wait and see what I cook up...</div>
-        <div class="card-tags">
-          <span class="card-tag">R</span>
-          <span class="card-tag">SQL</span>
-          <span class="card-tag">ggplot2</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" onclick="openModal(2)">
-      <div class="card-img" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);"></div>
-      <div class="card-body">
-        <div class="card-title">(WIP) Vineyard Management Database</div>
-        <div class="card-desc">Watch this space and see what I cook up...</div>
-        <div class="card-tags">
-          <span class="card-tag">Python</span>
-          <span class="card-tag">pandas</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
+<div class="project-grid" id="projectGrid"></div>
 
 <!-- Modal overlay -->
 <div class="modal-bg" id="modalBg" onclick="closeModalBg(event)">
   <div class="modal-wrap">
-    <div class="modal" id="modal">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-img" id="modalImg"></div>
       <div class="modal-body">
         <div class="modal-title" id="modalTitle"></div>
@@ -64,45 +23,80 @@ title: Projects
         <a href="#" class="modal-link" id="modalLink">View on GitHub →</a>
       </div>
     </div>
-    <button class="modal-close" onclick="document.getElementById('modalBg').classList.remove('open')">✕</button>
+    <button class="modal-close" aria-label="Close" onclick="document.getElementById('modalBg').classList.remove('open')">✕</button>
   </div>
 </div>
 
 <script>
 var projects = [
   {
-    title: "(WIP) Unified Team Intranet",
-    desc: "Centralised Google Workspace intranet replacing 6 siloed team drives for a 100+ person student organisation. Includes a shared calendar, document library, and onboarding flow.",
-    tags: ["Google Workspace"],
+    title: "Unified Team Intranet",
+    status: "shipped",
+    shortDesc: "Centralised Google Workspace intranet replacing 6 siloed team drives for a 100+ person student org.",
+    desc: "Objective: a 100+ person student organisation was running on 6 siloed team drives — files got lost, onboarding took weeks. Tools: Google Sites, Drive, and Workspace admin. Process: audited every team's storage, designed a single information architecture, and built a central intranet with a shared calendar, document library, and onboarding flow. Impact: one source of truth for the whole organisation and a dramatically faster onboarding experience for new members.",
+    tags: ["Google Workspace", "Sites", "Drive"],
     bg: "linear-gradient(135deg, #1a0000 0%, #3d0000 100%)",
     link: "#"
   },
   {
-    title: "(WIP) Prediction Song Hotness in the Million Song Dataset",
-    desc: "Watch this space and see what I cook up...",
-    tags: ["R", "ggplot2"],
+    title: "Predicting Song Hotness — Million Song Dataset",
+    status: "in-progress",
+    shortDesc: "Can audio features predict a hit? Exploring the Million Song Dataset with R and SQL.",
+    desc: "In progress. Objective: predict a track's 'hotness' score from audio features (tempo, loudness, key, duration) in the Million Song Dataset. Tools: R, SQL, and ggplot2. Process so far: extracting and cleaning a workable subset with SQL, then exploratory analysis and visualisation in R before fitting regression models. Write-up coming when the results are in.",
+    tags: ["R", "SQL", "ggplot2"],
     bg: "linear-gradient(135deg, #001a1f 0%, #003d4d 100%)",
     link: "#"
   },
   {
-    title: "(WIP) Vineyard Management Database",
-    desc: "Watch this space and see what I cook up...",
-    tags: ["MySQL"],
-    bg: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
+    title: "Vineyard Management Database",
+    status: "in-progress",
+    shortDesc: "Relational database design for vineyard operations — from ER model to working queries.",
+    desc: "In progress. Objective: design a relational database to manage vineyard operations — blocks, varieties, harvests, and treatments. Tools: MySQL for the schema, Python and pandas for loading and analysing the data. Process so far: entity-relationship modelling and schema normalisation; next up is building reporting queries on top. Write-up coming when it's done.",
+    tags: ["MySQL", "Python", "pandas"],
+    bg: "linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 100%)",
     link: "#"
   }
-  
-  
 ];
+
+/* Render cards from the single projects array */
+(function () {
+  var grid = document.getElementById('projectGrid');
+  projects.forEach(function (p, i) {
+    var badge = p.status === 'in-progress'
+      ? '<span class="badge badge-wip">In progress</span>'
+      : '<span class="badge badge-done">Shipped</span>';
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', p.title);
+    card.innerHTML =
+      '<div class="card-img" style="background:' + p.bg + ';">' + badge + '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-title">' + p.title + '</div>' +
+        '<div class="card-desc">' + p.shortDesc + '</div>' +
+        '<div class="card-tags">' + p.tags.map(function (t) { return '<span class="card-tag">' + t + '</span>'; }).join('') + '</div>' +
+      '</div>';
+    card.addEventListener('click', function () { openModal(i); });
+    card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); } });
+    grid.appendChild(card);
+  });
+})();
 
 function openModal(i) {
   var p = projects[i];
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalImg').style.background = p.bg;
-  document.getElementById('modalLink').href = p.link;
+  var link = document.getElementById('modalLink');
+  if (p.link && p.link !== '#') {
+    link.style.display = '';
+    link.href = p.link;
+  } else {
+    link.style.display = 'none';
+  }
   var tags = document.getElementById('modalTags');
-  tags.innerHTML = p.tags.map(function(t){ return '<span class="modal-tag">' + t + '</span>'; }).join('');
+  tags.innerHTML = p.tags.map(function (t) { return '<span class="modal-tag">' + t + '</span>'; }).join('');
   document.getElementById('modalBg').classList.add('open');
 }
 
@@ -112,7 +106,7 @@ function closeModalBg(e) {
   }
 }
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') document.getElementById('modalBg').classList.remove('open');
 });
 </script>
