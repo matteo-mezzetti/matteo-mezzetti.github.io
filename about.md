@@ -15,11 +15,14 @@ description: About Matteo Mezzetti — B.Commerce student at UQ majoring in Busi
 
   <h2>Experience</h2>
 
-  <p><strong>Director of People Operations — Newish Communications Inc</strong><br>
-  Student-run communications agency. Built the centralised team intranet featured in <a href="/projects">Projects</a>, consolidating 6 siloed team drives into one system for 100+ members.</p>
+  <p><strong>Director of People Operations &amp; Treasurer — Newish Communications Inc</strong><br>
+  Nov 2025 – present. Student-run communications agency. Lead people operations and treasury. Built the HR analytics system from scratch — retention, attendance, and application tracking from linked form data, extended to model team-switching — and the centralised intranet (Google Sites HRIS with KPI dashboards) featured in <a href="/projects">Projects</a>. Organised an industry visit to BDO's HR office, translating insights into a pilot director onboarding program.</p>
 
-  <p><strong>HR Intern</strong><br>
-  Ran end-to-end recruitment pipelines for 5 roles (100+ candidates) in direct collaboration with the CEO of a rapidly growing 100+ person organisation.</p>
+  <p><strong>Junior Consultant — 180 Degrees Consulting UQ</strong><br>
+  Mar – May 2026. Worked in a student consulting team delivering a pro bono project for a client organisation.</p>
+
+  <p><strong>Summer Intern, Human Resources — FORE Australia</strong><br>
+  Nov 2025 – Feb 2026. Managed end-to-end recruitment for the Semester 1 2026 Policy Training Program — 100+ policy interns — and authored a 16,000-word recruitment manual with the CEO.</p>
 
   <h2>Skills</h2>
 
