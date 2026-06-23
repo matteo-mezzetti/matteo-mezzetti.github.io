@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">
 </head>
-<body{% if page.url == '/' %} class="home"{% endif %}>
+<body>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
@@ -67,35 +67,6 @@
     </div>
   </nav>
 
-  {% if page.url == '/' %}
-  <aside class="sig-panel" aria-label="Interactive figure: least-squares regression">
-    <div class="sig-sticky">
-      <figure class="sig-figure" id="fit-fig">
-        <p class="sig-label">fig. 01 — ordinary least squares</p>
-        <div class="sig-plot">
-          <canvas id="fit-canvas" aria-hidden="true"></canvas>
-          <svg class="sig-static" viewBox="0 0 400 280" aria-hidden="true" focusable="false">
-            <line class="s-fit" x1="24" y1="214.8" x2="376" y2="78.6"></line>
-            <g class="s-pts">
-              <circle cx="45.1" cy="200.3" r="5"></circle><circle cx="73.3" cy="207.3" r="5"></circle>
-              <circle cx="97.9" cy="179.4" r="5"></circle><circle cx="126.1" cy="186.4" r="5"></circle>
-              <circle cx="147.2" cy="153.9" r="5"></circle><circle cx="171.8" cy="165.5" r="5"></circle>
-              <circle cx="200" cy="144.6" r="5"></circle><circle cx="228.2" cy="126.1" r="5"></circle>
-              <circle cx="252.8" cy="137.7" r="5"></circle><circle cx="281" cy="105.2" r="5"></circle>
-              <circle cx="319.7" cy="112.2" r="5"></circle><circle cx="347.8" cy="84.3" r="5"></circle>
-            </g>
-          </svg>
-        </div>
-        <figcaption class="sig-caption">
-          <span class="sig-readout" id="fit-readout">ŷ = 1.78 + 0.59x&ensp;·&ensp;R² = 0.94</span>
-          <span class="sig-note">Drag any point — the line refits and R² follows. One outlier can move the whole story.</span>
-          <button type="button" class="sig-reset" id="fit-reset">reset points</button>
-        </figcaption>
-      </figure>
-    </div>
-  </aside>
-  {% endif %}
-
   <main id="main">
     {{ content }}
   </main>
@@ -108,134 +79,6 @@
       <a href="https://github.com/matteo-mezzetti">GitHub</a>
     </p>
   </footer>
-
-  {% if page.url == '/' %}
-  <script>
-  (function () {
-    'use strict';
-    var fig = document.getElementById('fit-fig');
-    var canvas = document.getElementById('fit-canvas');
-    if (!fig || !canvas || !canvas.getContext) return;
-    var ctx = canvas.getContext('2d');
-    var readout = document.getElementById('fit-readout');
-    var resetBtn = document.getElementById('fit-reset');
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    var SEED = [[0.6,2.4],[1.4,2.1],[2.1,3.3],[2.9,3.0],[3.5,4.4],[4.2,3.9],
-                [5.0,4.8],[5.8,5.6],[6.5,5.1],[7.3,6.5],[8.4,6.2],[9.2,7.4]];
-    var pts = SEED.map(function (p) { return p.slice(); });
-
-    var css = getComputedStyle(document.documentElement);
-    var C = {
-      ink:  (css.getPropertyValue('--ink')    || '#15303c').trim(),
-      fit:  (css.getPropertyValue('--accent') || '#0c5f54').trim(),
-      grid: (css.getPropertyValue('--grid')   || '#c8d4dc').trim(),
-      mark: (css.getPropertyValue('--marker') || '#ffd23f').trim()
-    };
-
-    var W = 0, H = 0, PAD = 26, dragging = -1, progress = reduce ? 1 : 0;
-
-    function size() {
-      var w = canvas.clientWidth, h = canvas.clientHeight;
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      W = w; H = h;
-    }
-    function sx(x) { return PAD + x / 10 * (W - 2 * PAD); }
-    function sy(y) { return H - PAD - y / 10 * (H - 2 * PAD); }
-    function ux(px) { return (px - PAD) / (W - 2 * PAD) * 10; }
-    function uy(py) { return (H - PAD - py) / (H - 2 * PAD) * 10; }
-    function clamp(v) { return Math.max(0, Math.min(10, v)); }
-
-    function ols() {
-      var n = pts.length, mx = 0, my = 0, i;
-      for (i = 0; i < n; i++) { mx += pts[i][0]; my += pts[i][1]; }
-      mx /= n; my /= n;
-      var num = 0, den = 0;
-      for (i = 0; i < n; i++) { num += (pts[i][0] - mx) * (pts[i][1] - my); den += (pts[i][0] - mx) * (pts[i][0] - mx); }
-      var b = den ? num / den : 0, a = my - b * mx, ssr = 0, sst = 0;
-      for (i = 0; i < n; i++) {
-        var e = pts[i][1] - (a + b * pts[i][0]);
-        ssr += e * e; sst += (pts[i][1] - my) * (pts[i][1] - my);
-      }
-      return { a: a, b: b, r2: sst ? 1 - ssr / sst : 1 };
-    }
-
-    function draw() {
-      var f = ols();
-      ctx.clearRect(0, 0, W, H);
-
-      ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
-      for (var g = 0; g <= 10; g += 2) {
-        ctx.beginPath(); ctx.moveTo(sx(g), sy(0)); ctx.lineTo(sx(g), sy(10)); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(sx(0), sy(g)); ctx.lineTo(sx(10), sy(g)); ctx.stroke();
-      }
-
-      var n = Math.ceil(progress * pts.length);
-      if (progress >= 1) {
-        ctx.strokeStyle = C.fit; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(sx(0), sy(clamp(f.a))); ctx.lineTo(sx(10), sy(clamp(f.a + f.b * 10))); ctx.stroke();
-      }
-      for (var i = 0; i < n; i++) {
-        ctx.beginPath();
-        ctx.arc(sx(pts[i][0]), sy(pts[i][1]), i === dragging ? 7 : 5.5, 0, Math.PI * 2);
-        ctx.fillStyle = i === dragging ? C.mark : C.ink;
-        ctx.fill();
-        if (i === dragging) { ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.stroke(); }
-      }
-
-      readout.textContent = 'ŷ = ' + f.a.toFixed(2) + ' + ' + f.b.toFixed(2) + 'x · R² = ' + f.r2.toFixed(2);
-    }
-
-    function intro(ts) {
-      progress = Math.min(1, progress + 0.045);
-      draw();
-      if (progress < 1) requestAnimationFrame(intro);
-    }
-
-    function hit(px, py) {
-      var best = -1, bd = 18 * 18;
-      for (var i = 0; i < pts.length; i++) {
-        var dx = sx(pts[i][0]) - px, dy = sy(pts[i][1]) - py, d = dx * dx + dy * dy;
-        if (d < bd) { bd = d; best = i; }
-      }
-      return best;
-    }
-    function pos(e) {
-      var r = canvas.getBoundingClientRect();
-      return [e.clientX - r.left, e.clientY - r.top];
-    }
-
-    canvas.addEventListener('pointerdown', function (e) {
-      var p = pos(e), i = hit(p[0], p[1]);
-      if (i > -1) { dragging = i; canvas.setPointerCapture(e.pointerId); draw(); }
-    });
-    canvas.addEventListener('pointermove', function (e) {
-      if (dragging < 0) return;
-      var p = pos(e);
-      pts[dragging][0] = clamp(ux(p[0]));
-      pts[dragging][1] = clamp(uy(p[1]));
-      draw();
-    });
-    function release() { if (dragging > -1) { dragging = -1; draw(); } }
-    canvas.addEventListener('pointerup', release);
-    canvas.addEventListener('pointercancel', release);
-
-    resetBtn.addEventListener('click', function () {
-      pts = SEED.map(function (p) { return p.slice(); });
-      draw();
-    });
-
-    window.addEventListener('resize', function () { size(); draw(); });
-
-    fig.classList.add('js');
-    size();
-    if (reduce) { draw(); } else { requestAnimationFrame(intro); }
-  })();
-  </script>
-  {% endif %}
 
 </body>
 </html>
