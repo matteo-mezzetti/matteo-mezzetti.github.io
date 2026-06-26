@@ -30,6 +30,8 @@ description: About Matteo Mezzetti — B.Commerce student at UQ majoring in Busi
   <strong>Working towards:</strong> Tableau · Power BI · SAS<br>
   <strong>Comfortable with:</strong> Excel · Google Workspace</p>
 
+  <p><strong>Certifications:</strong> <a href="https://www.skills.google/public_profiles/1d75b9a0-ad6c-4055-ad22-4c9eabe681cb">Google Skills Profile</a></p>
+
   <h2>How I work</h2>
 
   <p>Every project I document follows the same structure: <strong>Objective</strong> (what problem was I solving?), <strong>Tools</strong> (what did I use?), <strong>Process</strong> (how did I approach it?), and <strong>Impact</strong> (what were the results?).</p>
